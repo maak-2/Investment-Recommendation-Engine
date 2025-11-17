@@ -29,7 +29,7 @@ The goal is to create a transparent, user-friendly tool that mirrors real-world 
 
 ## 📁 Data Source
 this data was gotten from kaggle
--[download here][https://www.kaggle.com/datasets/ayeshasiddiqa123/finance-trends-2020-2025?resource=download]
+-[download here](https://www.kaggle.com/datasets/ayeshasiddiqa123/finance-trends-2020-2025?resource=download)
 
 **File:** `Finance_Trends.csv`  
 **Type:** Financial Behaviour & Investment Preference Survey  
