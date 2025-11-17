@@ -78,3 +78,4 @@ Contains a reusable **InvestmentRecommender** class that handles data cleaning, 
 - **NumPy**
 - **Streamlit**
 - **CLI (built-in Python)**
+
