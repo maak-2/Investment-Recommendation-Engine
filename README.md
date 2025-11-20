@@ -79,13 +79,13 @@ During exploration, several patterns emerged:
 
 ## 🎯 Project Objectives
 This project was built with several clear, practical goals in mind:
-** Build an Explainable Investment Recommendation Engine
+### Build an Explainable Investment Recommendation Engine
 Create a system that doesn’t just recommend — but shows why it recommends specific investment products.
-** Combine Data-Driven Insights with Realistic Financial Logic
+### Combine Data-Driven Insights with Realistic Financial Logic
 Blend machine-learning-style segmentation with rule-based financial reasoning, replicating how real advisors assess risk.
-** Provide an Interactive, User-Friendly Experience
+### Provide an Interactive, User-Friendly Experience
 Allow users to input details such as age, duration, expected return, and risk appetite via a CLI or notebook interface.
-** Deliver Clear Visual Insights for Stakeholders
+### Deliver Clear Visual Insights for Stakeholders
 Generate visual breakdowns (bar charts, grouped comparisons, etc.) that help users understand the scoring behaviour behind the scenes.
 
 
