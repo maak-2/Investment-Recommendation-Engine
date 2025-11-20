@@ -22,20 +22,8 @@ I built this project to demonstrate how analytics, business logic, and user-cent
 
 ---
 
-## 📌 Project Overview
-This project delivers an end-to-end **Investment Recommendation Engine** developed in Python. Using a dataset of investor behaviours and financial preferences,
-the system evaluates user inputs such as investment duration, expected returns, and risk appetite to generate **data-backed investment recommendations**.
-
-The recommendation engine integrates:
-
-- **Segment-based statistical analysis** (mean preference scoring)
-- **Rule-based risk modelling**
-- **Explanation generation** via investor motivation fields
-- **Two user interfaces:**
-  - Command-Line Interface (CLI)
-  - Streamlit Web Application
-
-The goal is to create a transparent, user-friendly tool that mirrors real-world financial advisory logic using data science techniques.
+## 📌 Dataset Overview
+The project is powered by Finance_Trends.csv, a large dataset containing real survey responses about investor preferences, behaviour, and financial motivations.
 
 ---
 
