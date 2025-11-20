@@ -54,7 +54,7 @@ Numeric ratings (1–10 scale):
 
 These represent how strongly each investor prefers a given product.
 
-# Behaviour & Attitudes
+### Behaviour & Attitudes
 - Duration (preferred investment horizon: "<1 year", "1–3 years", etc.)
 - Expect (expected annual returns: "10%-20%", "20%-30%", etc.)
 - Invest_Monitor (how often they monitor investments)
@@ -67,6 +67,20 @@ Textual reasons such as:
 - Reason_Bonds
 - Reason_FD
 - Reason_Equity
+
+## 🧼 Data Cleaning & Preprocessing
+To ensure reliable analysis, several preprocessing steps were applied:
+- Stripped whitespace from all string-based columns
+- Converted mixed-type fields into consistent categorical values
+- Normalised duration and expected-return fields for mapping
+- Handled potentially inconsistent text fields in reasons & motivations
+- Verified numeric integrity of preference scores
+
+
+
+
+
+
 
 ### Dataset Contains:
 - **Demographics:** age, gender  
