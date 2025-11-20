@@ -8,9 +8,9 @@ This project is a full end-to-end Investment Recommendation Engine built with Py
 
 Unlike generic recommendation systems, this project blends:
 
-- **Data-driven analytics — using actual investor survey patterns
-- **Risk-based rule logic — mirroring how financial advisors think
-- **Explainable insights — visual breakdowns of why recommendations were chosen
+- Data-driven analytics — using actual investor survey patterns
+- Risk-based rule logic — mirroring how financial advisors think
+- Explainable insights — visual breakdowns of why recommendations were chosen
 
 ---
 
