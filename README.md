@@ -28,9 +28,11 @@ The project is powered by Finance_Trends.csv, a large dataset containing real su
 ---
 
 ## 📁 Data Source
-this data was gotten from kaggle
+This dataset was provided as part of a financial behaviour research activity and captures a wide cross-section of retail investors `Finance_Trends.csv`. Although the dataset was gotten from kaggle, it mirrors the structure of typical investor profiling research used in financial services.
 -[download here](https://www.kaggle.com/datasets/ayeshasiddiqa123/finance-trends-2020-2025?resource=download)
 
+## 📐 Size & Structure
+Rows: ~12,000+ individual responses
 **File:** `Finance_Trends.csv`  
 **Type:** Financial Behaviour & Investment Preference Survey  
 
