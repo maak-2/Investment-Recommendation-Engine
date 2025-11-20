@@ -38,11 +38,11 @@ This dataset was provided as part of a financial behaviour research activity and
 ## 🧩 Key Features & Variables
 The dataset captures a wide array of investment-related attributes, including:
 
-# Demographics
+### Demographics
 - gender
 - age
 
-# Investment Preference Scores
+### Investment Preference Scores
 Numeric ratings (1–10 scale):
 - Mutual_Funds
 - Equity_Market
