@@ -35,6 +35,8 @@ This dataset was provided as part of a financial behaviour research activity and
 Finance Trends <img width="1470" height="956" alt="Screenshot 2025-11-20 at 16 19 15" src="https://github.com/user-attachments/assets/4828c2d5-b999-4f99-87c6-861b20adcb05" />
 
 
+
+
 ## 📐 Size & Structure
 - Rows: ~12,000+ individual responses
 - Columns: 24 variables (mix of numeric ratings & categorical fields)
