@@ -32,9 +32,41 @@ This dataset was provided as part of a financial behaviour research activity and
 -[download here](https://www.kaggle.com/datasets/ayeshasiddiqa123/finance-trends-2020-2025?resource=download)
 
 ## 📐 Size & Structure
-Rows: ~12,000+ individual responses
-**File:** `Finance_Trends.csv`  
-**Type:** Financial Behaviour & Investment Preference Survey  
+- Rows: ~12,000+ individual responses
+- Columns: 24 variables (mix of numeric ratings & categorical fields)
+
+## 🧩 Key Features & Variables
+The dataset captures a wide array of investment-related attributes, including:
+
+# Demographics
+- gender
+- age
+
+# Investment Preference Scores
+Numeric ratings (1–10 scale):
+- Mutual_Funds
+- Equity_Market
+- Debentures
+- Government_Bonds
+- Fixed_Deposits
+- PPF
+- Gold
+
+These represent how strongly each investor prefers a given product.
+
+# Behaviour & Attitudes
+- Duration (preferred investment horizon: "<1 year", "1–3 years", etc.)
+- Expect (expected annual returns: "10%-20%", "20%-30%", etc.)
+- Invest_Monitor (how often they monitor investments)
+- Objective (investment goals)
+- Factor (key decision drivers)
+
+# Motivations
+Textual reasons such as:
+- Reason_Mutual
+- Reason_Bonds
+- Reason_FD
+- Reason_Equity
 
 ### Dataset Contains:
 - **Demographics:** age, gender  
