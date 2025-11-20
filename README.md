@@ -87,8 +87,15 @@ Blend machine-learning-style segmentation with rule-based financial reasoning, r
 Allow users to input details such as age, duration, expected return, and risk appetite via a CLI or notebook interface.
 ### Deliver Clear Visual Insights for Stakeholders
 Generate visual breakdowns (bar charts, grouped comparisons, etc.) that help users understand the scoring behaviour behind the scenes.
-
-
+### Demonstrate Practical Python, Data Science, and Analytical Skills
+Showcase a real-world project employing:
+- Pandas
+- NumPy
+- Seaborn / Matplotlib
+- OOP design principles
+- Data cleaning & preprocessing
+- User input handling
+- Business and financial reasoning
 
 
 
