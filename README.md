@@ -3,7 +3,7 @@
 **Investment Recommendation Engine Using Python (Hybrid ML + Rule-Based System)**
 ---
 
-## 📝 Short Description
+## Project Overview
 This project is a full end-to-end Investment Recommendation Engine built with Python, designed to help individuals identify the most suitable investment avenues based on their profile, behaviour, and financial goals.
 
 Unlike generic recommendation systems, this project blends:
@@ -11,6 +11,14 @@ Unlike generic recommendation systems, this project blends:
 - Data-driven analytics — using actual investor survey patterns
 - Risk-based rule logic — mirroring how financial advisors think
 - Explainable insights — visual breakdowns of why recommendations were chosen
+
+The engine takes simple user inputs such as age, investment duration, expected returns, and risk appetite, then intelligently matches them to similar investor profiles from the dataset. From there, it generates:
+
+- personalised investment suggestions
+- visual comparisons of “base” vs “risk-adjusted” scores
+- transparent logic behind each recommendation
+
+I built this project to demonstrate how analytics, business logic, and user-centric thinking can be combined into a clear, practical tool. It reflects my passion for transforming raw data into meaningful insights and helping people make better financial decisions.
 
 ---
 
