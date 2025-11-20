@@ -1,142 +1,185 @@
-import streamlit as st
-from investment_recommender import (
-    InvestmentRecommender,
-    map_duration_years_to_category,
-    map_expected_return_to_category,
-)
+import pandas as pd
 
+# ============================================================
+# INVESTMENT RECOMMENDER CLASS
+# ============================================================
 
-# ---------- Load Recommender ----------
-@st.cache_data
-def load_recommender():
-    return InvestmentRecommender.from_csv("Finance_Trends.csv")
-
-
-# ---------- Streamlit App ----------
-def main():
-    st.set_page_config(
-        page_title="Investment Recommendation Engine",
-        page_icon="📈",
-        layout="wide",
-    )
-
-    # Header
-    st.title("📈 Investment Recommendation Engine")
-    st.markdown(
+class InvestmentRecommender:
+    def __init__(self, dataframe):
         """
-        This app uses a **survey-based financial behaviour dataset** to suggest
-        suitable investment avenues based on your **risk appetite, time horizon, and return expectations**.
+        Initialize the recommender with a cleaned pandas DataFrame.
         """
-    )
+        self.df = dataframe
+        self.investment_cols = [
+            "Mutual_Funds", "Equity_Market", "Debentures", "Government_Bonds",
+            "Fixed_Deposits", "PPF", "Gold"
+        ]
 
-    # Load model
-    recommender = load_recommender()
+    @classmethod
+    def from_csv(cls, file_path: str):
+        """
+        Load dataset from CSV and perform necessary cleaning.
+        """
+        df = pd.read_csv(file_path)
 
-    # Layout: two columns
-    col_left, col_right = st.columns([1, 2])
+        # Clean up whitespace from important string columns
+        text_cols = [
+            "gender", "Investment_Avenues", "Duration", "Expect", "Avenue",
+            "Reason_Equity", "Reason_Mutual", "Reason_Bonds", "Reason_FD", "Source"
+        ]
 
-    with col_left:
-        st.subheader("🧑‍💼 Investor Profile")
+        for col in text_cols:
+            if col in df.columns:
+                df[col] = df[col].astype(str).str.strip()
 
-        age = st.number_input(
-            "Age",
-            min_value=18,
-            max_value=100,
-            value=30,
-            step=1,
-        )
+        return cls(df)
 
-        gender = st.selectbox(
-            "Gender",
-            options=["Male", "Female", "Other"],
-            index=0,
-        )
+    # -----------------------------------------------------------
+    # Mapping functions
+    # -----------------------------------------------------------
 
-        duration_years = st.number_input(
-            "Investment Horizon (years)",
-            min_value=0.1,
-            max_value=50.0,
-            value=5.0,
-            step=0.5,
-            help="How long you plan to keep this investment."
-        )
-
-        expected_return_pct = st.number_input(
-            "Target Annual Return (%)",
-            min_value=1.0,
-            max_value=50.0,
-            value=15.0,
-            step=1.0,
-            help="Average annual return you are aiming for."
-        )
-
-        risk_level = st.selectbox(
-            "Risk Appetite",
-            options=["low", "medium", "high"],
-            index=1,
-            help="Higher risk usually means higher potential return, but also higher chance of loss."
-        )
-
-        top_n = st.slider(
-            "Number of Recommendations",
-            min_value=1,
-            max_value=7,
-            value=3,
-        )
-
-        show_segment = st.checkbox(
-            "Show underlying segment statistics",
-            value=False,
-        )
-
-        run_button = st.button("🔍 Get Recommendations")
-
-    with col_right:
-        st.subheader("🎯 Results")
-
-        if run_button:
-            # Generate recommendations (silent mode)
-            results = recommender.recommend(
-                age=age,
-                gender=gender,
-                duration_years=duration_years,
-                expected_return_pct=expected_return_pct,
-                risk_level=risk_level,
-                top_n=top_n,
-                verbose=False,
-            )
-
-            # Segment & base scores
-            duration_cat = map_duration_years_to_category(duration_years)
-            expect_cat = map_expected_return_to_category(expected_return_pct)
-            seg = recommender._get_segment(duration_cat, expect_cat)
-            base_scores = recommender._compute_segment_scores(seg)
-
-            if not results:
-                st.warning("No recommendations could be generated.")
-            else:
-                for avenue, score in results:
-                    base = base_scores.get(avenue, float("nan"))
-                    explanation = recommender._explain_recommendation(avenue, seg)
-
-                    with st.container():
-                        st.markdown(f"### 📌 {avenue}")
-                        st.markdown(
-                            f"- **Adjusted Score:** `{score:.2f}`  "
-                            f"(Segment Mean: `{base:.2f}`)"
-                        )
-                        st.markdown(f"- **Why this option?** {explanation}")
-                        st.markdown("---")
-
-                if show_segment:
-                    st.markdown("### 📊 Segment Statistics")
-                    st.write(
-                        "These are investors in the dataset with **similar duration** "
-                        "and **expected return preferences** to you."
-                    )
-                    st.dataframe(seg.describe(include="all"))
+    @staticmethod
+    def map_duration_years(years: float) -> str:
+        if years < 1:
+            return "Less than 1 year"
+        elif years < 3:
+            return "1-3 years"
+        elif years < 5:
+            return "3-5 years"
         else:
-            st.info("Fill in your profile on the left and click **'Get Recommendations'**.")
+            return "More than 5 years"
+
+    @staticmethod
+    def map_expected_return(expected_pct: float) -> str:
+        if expected_pct < 20:
+            return "10%-20%"
+        elif expected_pct < 30:
+            return "20%-30%"
+        else:
+            return "30%-40%"
+
+    # -----------------------------------------------------------
+    # Main Recommendation Method
+    # -----------------------------------------------------------
+
+    def recommend(
+        self,
+        age,
+        gender,
+        duration_years,
+        expected_return_pct,
+        risk_level="medium",
+        top_n=3,
+        verbose=True
+    ):
+        """
+        Hybrid recommendation engine combining:
+        - Data-driven segmentation
+        - Rule-based risk adjustment
+        """
+
+        duration_cat = self.map_duration_years(duration_years)
+        expect_cat = self.map_expected_return(expected_return_pct)
+        gender = gender.strip().title()
+        risk_level = risk_level.lower()
+
+        # Filter similar investors
+        seg = self.df[
+            (self.df["Duration"] == duration_cat) &
+            (self.df["Expect"] == expect_cat)
+        ]
+
+        if seg.empty:
+            seg = self.df.copy()
+
+        # Base mean preference scores
+        base_scores = seg[self.investment_cols].mean().to_dict()
+
+        # Risk adjustment rules
+        risk_boosts = {
+            "low": {"Fixed_Deposits": 1, "PPF": 1, "Government_Bonds": 0.7},
+            "medium": {"Mutual_Funds": 0.5, "PPF": 0.5, "Government_Bonds": 0.5},
+            "high": {"Equity_Market": 1, "Mutual_Funds": 0.7, "Gold": 0.5}
+        }
+
+        # Apply adjustments
+        adjusted_scores = base_scores.copy()
+        if risk_level in risk_boosts:
+            for prod, boost in risk_boosts[risk_level].items():
+                adjusted_scores[prod] = adjusted_scores.get(prod, 0) + boost
+
+        # Sort and return top recommendations
+        final_recs = sorted(
+            adjusted_scores.items(), key=lambda x: x[1], reverse=True
+        )[:top_n]
+
+        if verbose:
+            print("=== Recommendation Results ===\n")
+            for prod, score in final_recs:
+                print(f"• {prod}: {score:.2f} (base: {base_scores[prod]:.2f})")
+            print()
+
+        return final_recs
+
+
+# ============================================================
+# HELPER INPUT FUNCTIONS FOR CLI
+# ============================================================
+
+def _get_int(prompt):
+    while True:
+        try:
+            return int(input(prompt))
+        except ValueError:
+            print("❌ Invalid integer. Try again.\n")
+
+def _get_float(prompt):
+    while True:
+        try:
+            return float(input(prompt))
+        except ValueError:
+            print("❌ Invalid number. Try again.\n")
+
+def _get_choice(prompt, valid_choices):
+    valid_choices = [v.lower() for v in valid_choices]
+    while True:
+        response = input(prompt).strip().lower()
+        if response in valid_choices:
+            return response
+        else:
+            print(f"❌ Please choose from: {valid_choices}\n")
+
+
+# ============================================================
+# CLI MAIN EXECUTION
+# ============================================================
+
+def main():
+    print("\n=== Investment Recommendation CLI ===\n")
+
+    # Load the recommendation engine
+    recommender = InvestmentRecommender.from_csv("Finance_Trends.csv")
+
+    # Collect user input
+    age = _get_int("Enter your age (e.g. 30): ")
+    gender = input("Enter your gender (Male/Female): ").strip()
+    duration_years = _get_float("How many years do you plan to invest? (e.g. 3.5): ")
+    expected_return_pct = _get_float("Expected annual return (%), e.g. 15: ")
+    risk_level = _get_choice("Risk appetite (low/medium/high): ", ["low", "medium", "high"])
+    top_n = _get_int("How many top recommendations? (e.g. 3): ")
+
+    print("\nGenerating your personalized investment recommendations...\n")
+
+    # Generate recommendations
+    recommender.recommend(
+        age=age,
+        gender=gender,
+        duration_years=duration_years,
+        expected_return_pct=expected_return_pct,
+        risk_level=risk_level,
+        top_n=top_n,
+        verbose=True
+    )
 
 
 if __name__ == "__main__":
