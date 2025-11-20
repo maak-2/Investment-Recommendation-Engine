@@ -61,13 +61,6 @@ These represent how strongly each investor prefers a given product.
 - Objective (investment goals)
 - Factor (key decision drivers)
 
-# Motivations
-Textual reasons such as:
-- Reason_Mutual
-- Reason_Bonds
-- Reason_FD
-- Reason_Equity
-
 ## 🧼 Data Cleaning & Preprocessing
 To ensure reliable analysis, several preprocessing steps were applied:
 - Stripped whitespace from all string-based columns
@@ -75,6 +68,27 @@ To ensure reliable analysis, several preprocessing steps were applied:
 - Normalised duration and expected-return fields for mapping
 - Handled potentially inconsistent text fields in reasons & motivations
 - Verified numeric integrity of preference scores
+
+## 💡 Interesting Dataset Insights
+During exploration, several patterns emerged:
+- Equity & Mutual Funds consistently scored highest among younger, high-risk investors.
+- Fixed Deposits, PPF, and Government Bonds were most preferred by low-risk and short-duration investors.
+- Higher expected returns (30%+) were strongly associated with increased equity market preferences.
+- Long-term investors (>5 years) leaned more towards Gold and Mutual Funds.
+- Clear behavioural clustering exists based on duration, expected return, and risk appetite—ideal for a recommendation engine.
+
+## 🎯 Project Objectives
+This project was built with several clear, practical goals in mind:
+** Build an Explainable Investment Recommendation Engine
+Create a system that doesn’t just recommend — but shows why it recommends specific investment products.
+** Combine Data-Driven Insights with Realistic Financial Logic
+Blend machine-learning-style segmentation with rule-based financial reasoning, replicating how real advisors assess risk.
+** Provide an Interactive, User-Friendly Experience
+Allow users to input details such as age, duration, expected return, and risk appetite via a CLI or notebook interface.
+** Deliver Clear Visual Insights for Stakeholders
+Generate visual breakdowns (bar charts, grouped comparisons, etc.) that help users understand the scoring behaviour behind the scenes.
+
+
 
 
 
